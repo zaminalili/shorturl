@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using shorturl.API.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<ShorturlDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ShorturlDb")));
 
 var app = builder.Build();
 
