@@ -18,6 +18,7 @@ builder.Services.AddDbContext<ShorturlDbContext>(options =>
 
 builder.Services.AddScoped<IUrlRepository, UrlRepository>();
 
+builder.Services.AddScoped<IUrlService, UrlService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
