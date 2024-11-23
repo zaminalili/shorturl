@@ -26,8 +26,7 @@ internal class UrlRepository(ShorturlDbContext dbContext) : IUrlRepository
 
     public async Task UpdateAsync(Url url)
     {
-        if (await GetUrlAsync(url.ShortCode) != null)
-            dbContext.Urls.Update(url);
+        dbContext.Urls.Update(url);
 
         await dbContext.SaveChangesAsync();
     }
