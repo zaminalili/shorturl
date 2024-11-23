@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using shorturl.API.Models;
 using shorturl.API.Repositories.Abstract;
@@ -21,6 +23,7 @@ builder.Services.AddScoped<IUrlRepository, UrlRepository>();
 builder.Services.AddScoped<IUrlService, UrlService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly).AddFluentValidationAutoValidation();
 
 var app = builder.Build();
 
