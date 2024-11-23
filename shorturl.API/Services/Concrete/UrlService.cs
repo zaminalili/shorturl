@@ -53,6 +53,7 @@ internal class UrlService(IUrlRepository urlRepository, IMapper mapper): IUrlSer
 
         urlDetail.OriginalUrl = originalUrl;
         urlDetail.UpdatedAt = DateTime.UtcNow;
+        await urlRepository.UpdateAsync(urlDetail);
 
         var dto = mapper.Map<GetUrlDto>(urlDetail);
         return dto;
