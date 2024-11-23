@@ -9,7 +9,7 @@ internal class UrlRepository(ShorturlDbContext dbContext) : IUrlRepository
 {
     public async Task CreateAsync(Url url)
     {
-        dbContext.Urls.Update(url);
+        dbContext.Urls.Add(url);
         await dbContext.SaveChangesAsync();
     }
 
