@@ -36,4 +36,11 @@ internal class UrlRepository(ShorturlDbContext dbContext) : IUrlRepository
     {
         return await dbContext.Urls.AnyAsync(u => u.ShortCode == shortCode);
     }
+
+    public async Task IncreaseAccessCount(Url url)
+    {
+        url.AccessCount++;
+
+        await UpdateAsync(url);
+    }
 }

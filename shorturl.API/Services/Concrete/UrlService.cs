@@ -37,6 +37,9 @@ internal class UrlService(IUrlRepository urlRepository, IMapper mapper): IUrlSer
     {
         var urlDetail = await urlRepository.GetUrlAsync(shortCode);
 
+        if(urlDetail != null)
+            await urlRepository.IncreaseAccessCount(urlDetail);
+
         var dto = mapper.Map<GetUrlDto?>(urlDetail);
 
         return dto;

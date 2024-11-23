@@ -9,4 +9,5 @@ public interface IUrlRepository
     Task UpdateAsync(Url url);
     Task DeleteAsync(Url url);
     Task<bool> IsAny(string shortCode);
+    Task IncreaseAccessCount(Url url);
 }
