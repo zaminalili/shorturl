@@ -13,12 +13,10 @@ internal class UrlRepository(ShorturlDbContext dbContext) : IUrlRepository
         await dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(string shortCode)
+    public async Task DeleteAsync(Url url)
     {
-        var url = await GetUrlAsync(shortCode);
-        if (url != null)
-            dbContext.Urls.Remove(url);
-
+        dbContext.Urls.Remove(url);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task<Url?> GetUrlAsync(string shortCode)
@@ -30,6 +28,8 @@ internal class UrlRepository(ShorturlDbContext dbContext) : IUrlRepository
     {
         if (await GetUrlAsync(url.ShortCode) != null)
             dbContext.Urls.Update(url);
+
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task<bool> IsAny(string shortCode)

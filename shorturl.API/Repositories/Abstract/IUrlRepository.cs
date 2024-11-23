@@ -7,6 +7,6 @@ public interface IUrlRepository
     Task CreateAsync(Url url);
     Task<Url?> GetUrlAsync(string shortCode);
     Task UpdateAsync(Url url);
-    Task DeleteAsync(string shortCode);
+    Task DeleteAsync(Url url);
     Task<bool> IsAny(string shortCode);
 }
