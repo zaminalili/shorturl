@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using shorturl.API.Models;
+using shorturl.API.Repositories.Abstract;
+using shorturl.API.Repositories.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ShorturlDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ShorturlDb")));
+
+builder.Services.AddScoped<IUrlRepository, UrlRepository>();
 
 var app = builder.Build();
 
