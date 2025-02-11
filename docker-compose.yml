@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  shorturl.api:
+    build:
+      context: ./shorturl.API/
+      dockerfile: Dockerfile
+    restart: on-failure  
+    ports:
+      - "8080:8089"
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - sqlserver
+    networks:
+      - shorturlnetwork 
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "Sql2025!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
+    networks:
+      - shorturlnetwork
+
+volumes:
+  sqlvolume:  
+
+networks:
+  shorturlnetwork:  
