@@ -6,6 +6,7 @@ using shorturl.API.Repositories.Abstract;
 using shorturl.API.Repositories.Concrete;
 using shorturl.API.Services.Abstract;
 using shorturl.API.Services.Concrete;
+using shorturl.API.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +23,16 @@ builder.Services.AddScoped<IUrlRepository, UrlRepository>();
 
 builder.Services.AddScoped<IUrlService, UrlService>();
 
+builder.Services.AddScoped<IMigrationRunner, MigrationRunner>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly).AddFluentValidationAutoValidation();
 
 var app = builder.Build();
+
+var scope = app.Services.CreateScope();
+var migrationRunner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+await migrationRunner.MigrateAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
